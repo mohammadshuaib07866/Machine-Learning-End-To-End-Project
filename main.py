@@ -1,10 +1,15 @@
-from src.logger import logger
-import os
-logger.info("Welcome to our custom logging")
+from src.pipeline.training_pipeline import DataIngestionTrainingPipeline
+from src.loggers import logger
+
+
+STAGE_NAME = "Data Ingestion Stage"
+
 
 if __name__ == "__main__":
-    logger.info("App started successfully")
-    path = ["data1","data2","data3"]
-    for path in path:
-        os.makedirs(path)
-
+    try:
+        logger.info(f">>>>>>>> stage {STAGE_NAME} started <<<<<<<<")
+        obj = DataIngestionTrainingPipeline()
+        obj.initiate_data_ingestion()
+        logger.info(f">>>>>>>>stage {STAGE_NAME} completed <<<<<<<<<\n\n =========x")
+    except Exception as e:
+        raise e

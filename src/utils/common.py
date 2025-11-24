@@ -5,7 +5,7 @@ import yaml
 import joblib
 from ensure import ensure_annotations
 from box import ConfigBox
-from src.logger import logger
+from src.loggers import logger
 from pathlib import Path
 from typing import Any
 from box.exceptions import BoxValueError
