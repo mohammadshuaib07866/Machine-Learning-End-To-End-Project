@@ -1,15 +1,29 @@
-from src.pipeline.training_pipeline import DataIngestionTrainingPipeline
 from src.loggers import logger
-
-
-STAGE_NAME = "Data Ingestion Stage"
-
+from src.pipeline.training_pipeline import (
+    DataIngestionTrainingPipeline,
+    DataValidationTrainingPipeline,
+)
 
 if __name__ == "__main__":
     try:
-        logger.info(f">>>>>>>> stage {STAGE_NAME} started <<<<<<<<")
-        obj = DataIngestionTrainingPipeline()
-        obj.initiate_data_ingestion()
-        logger.info(f">>>>>>>>stage {STAGE_NAME} completed <<<<<<<<<\n\n =========x")
+        # --------------------- #
+        #  STAGE 1: INGESTION   #
+        # --------------------- #
+        STAGE_NAME = "DATA INGESTION STAGE"
+        logger.info(f">>>>>>> {STAGE_NAME} started <<<<<<")
+        ingestion = DataIngestionTrainingPipeline()
+        ingestion.initiate_data_ingestion()
+        logger.info(f">>>>>>> {STAGE_NAME} completed <<<<<<\n")
+
+        # --------------------- #
+        #  STAGE 2: VALIDATION  #
+        # --------------------- #
+        STAGE_NAME = "DATA VALIDATION STAGE"
+        logger.info(f">>>>>>> {STAGE_NAME} started <<<<<<")
+        validation = DataValidationTrainingPipeline()
+        validation.initiate_data_validation()
+        logger.info(f">>>>>>> {STAGE_NAME} completed <<<<<<\n")
+
     except Exception as e:
+        logger.exception(e)
         raise e

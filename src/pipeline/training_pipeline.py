@@ -1,9 +1,7 @@
 from src.components.data_ingestion import DataIngestion
+from src.components.data_validation import DataValidation
 from src.config.configuration import ConfigurationManager
 from src.loggers import logger
-import os
-import sys
-
 
 
 class DataIngestionTrainingPipeline:
@@ -12,10 +10,21 @@ class DataIngestionTrainingPipeline:
 
     def initiate_data_ingestion(self):
         config = ConfigurationManager()
-        data_ingestion_config = config.get_data_ingestion_config()
-        data_ingestion = DataIngestion(config=data_ingestion_config)
+        ingestion_config = config.get_data_ingestion_config()
+
+        data_ingestion = DataIngestion(ingestion_config)
         data_ingestion.download_file()
         data_ingestion.extract_zip_file()
 
 
+class DataValidationTrainingPipeline:
+    def __init__(self):
+        pass
 
+    def initiate_data_validation(self):
+        config = ConfigurationManager()
+        validation_config = config.get_data_validation_config()
+
+        data_validation = DataValidation(validation_config)
+        status = data_validation.validate_all_columns()
+        logger.info(f"Data Validation Status: {status}")
